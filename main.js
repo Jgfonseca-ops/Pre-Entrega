@@ -13,9 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-if(admin ==true){
-app.use('/api', require('./Routers'));}
-else{ console.log('no puede acceder')}
+
+app.use('/api', require('./Routers'));
+
 
 
 app.use('/api/carrito', require('./RoutersCarrito'));
