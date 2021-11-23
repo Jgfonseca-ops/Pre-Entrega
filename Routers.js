@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { Router } = express;
-const productos = require('./Clases');
-const admin = false
+
+//--------- ESTE ES EL UNICO ERROR QUE TENGO*--------------------
+const productosAPI = require('./ProductosDaoMongoDb')
+//const productos = require('./Clases');
+const admin = true
 
 
 router.get('/productos', (req, res)=> {
@@ -15,15 +18,14 @@ router.get('/productos/:id', (req, res) => {
     res.json(IDProduct)
               
 });
-
+//------------------Lo usamos para la prueba-------------
 router.post('/', (req, res) => {
     if(admin){     
     const newProduct = req.body;
-    productos.addProduct(newProduct);
-    res.json(productos)}
+    res.json(productosAPI.addProduct(newProduct))}
     else{ res.send("OLNY ADMIN CAN HAVE ACCESS")}    
 });
-
+//----------------------------------------------------------
 router.delete('/:id' , (req, res)=> {
     if(admin){   
     const ID = parseInt(req.params.id);
