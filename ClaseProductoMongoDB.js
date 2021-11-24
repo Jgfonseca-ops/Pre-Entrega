@@ -13,6 +13,18 @@ class ContenedorMongoDb{
     constructor(nombreColeccion, esquema){
         this.coleccion = mongoose.model(nombreColeccion, esquema)
     }
+    async getProduct(){
+        try {
+        const productbyID = await this.coleccion.find();
+        console.log('Producto encontrado');
+        return productbyID
+        }
+        catch (error) {
+            console.log('Error no se encuentran  productos')
+        }
+        
+    }
+
 
     async getIdProduct(ID){
         try {

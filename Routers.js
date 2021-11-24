@@ -2,13 +2,20 @@ const express = require('express');
 const router = express.Router();
 const { Router } = express;
 
-//--------- ESTE ES EL UNICO ERROR QUE TENGO*--------------------
-//const productosAPI = require('./ProductosDaoMongoDb')
+
+const productosAPI = require('./Daos/ProductosDaoMongoDb')
+/*
 const productosAPI = require('./Clases');
+*/
 const admin = true
 
 
 router.get('/productos', (req, res)=> {
+    res.json(productos)      
+});
+
+router.get('/productosMongo', async (req, res)=> {
+    const productos = await productosAPI.getProduct()
     res.json(productos)      
 });
 

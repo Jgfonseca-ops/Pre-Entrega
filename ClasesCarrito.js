@@ -3,9 +3,9 @@ class Carritos{
         this.carrito = carrito;
            }
 
-addProduct(newProduct){
-        const newProd = {...newProduct, id: ++this.id}
-        this.carrito.push(newProduct);
+addCar(newCar){
+        const newProd = {...newCar, id: ++this.id}
+        this.carrito.push(newCar);
         return(newProd)
         }
     
