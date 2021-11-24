@@ -3,8 +3,8 @@ const router = express.Router();
 const { Router } = express;
 
 //--------- ESTE ES EL UNICO ERROR QUE TENGO*--------------------
-const productosAPI = require('./ProductosDaoMongoDb')
-//const productos = require('./Clases');
+//const productosAPI = require('./ProductosDaoMongoDb')
+const productosAPI = require('./Clases');
 const admin = true
 
 
@@ -12,34 +12,32 @@ router.get('/productos', (req, res)=> {
     res.json(productos)      
 });
 
-router.get('/productos/:id', (req, res) => {       
+router.get('/productos/:id', async (req, res) => {       
     const ID = req.params['id'];
-    const IDProduct = productos.getIdProduct(ID)
+    const IDProduct = await productosAPI.getIdProduct(ID)
+    console.log(IDProduct);
     res.json(IDProduct)
               
 });
-//------------------Lo usamos para la prueba-------------
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     if(admin){     
     const newProduct = req.body;
-    res.json(productosAPI.addProduct(newProduct))}
+    res.json( await productosAPI.addProduct(newProduct))}
     else{ res.send("OLNY ADMIN CAN HAVE ACCESS")}    
 });
-//----------------------------------------------------------
-router.delete('/:id' , (req, res)=> {
+
+router.delete('/:id' , async (req, res)=> {
     if(admin){   
     const ID = parseInt(req.params.id);
-    productos.DeletebyID(ID);
-    res.json(productos)}
+    res.json( await productosAPI.DeletebyID(ID))}
     else{ res.send("OLNY ADMIN CAN HAVE ACCESS")}  
 
 });
-
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     if(admin){ 
     const ID = parseInt(req.params.id);
     const body = req.body;
-    const product = productos.ModifyByID(body, ID);
+    const product = await productosAPI.ModifyByID(ID, body);
     res.json(product)}
     else{ res.send("OLNY ADMIN CAN HAVE ACCESS")}
 
